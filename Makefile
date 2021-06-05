@@ -17,10 +17,12 @@ endif
 
 # Commit and push the changes to remote git repo
 push:
+	- cat .gitignore | xargs -rI % git rm --cached % 2>/dev/null
 	- make commit c="${c}"
 	- git push -u origin ${GIT_BRANCH}
 
 pushall:
+	- cat .gitignore | xargs -rI % git rm --cached % 2>/dev/null
 	- make commit c="${c}"
 	- git push -u origin --all
 
