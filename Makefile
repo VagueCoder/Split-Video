@@ -60,4 +60,3 @@ requirements:
 	. venv/bin/activate; \
 	bash which pip; \
 	pip install -Ur requirements.txt;
-
