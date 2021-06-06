@@ -23,6 +23,6 @@ Sno. | Package | Version | Comment
 ## Message to Viewer
 A geek to geek: When this is useful to someone, I'd be glad. But if you want to add more interesting stuff to this, I very much encourage it. This is all yours to use!
 
-Write to me at (Click): [VagueCoder0t0.n@gmail.com](mailto:VagueCoder0t0.n@gmail.com?subject=%5BGITHUB%3A%20Split-Video%5D%20Your%20Subject%20Here&body=Hello%20Vague%2C%0A%0A)
+Write to me at (Click): [VagueCoder0to.n@gmail.com](mailto:VagueCoder0to.n@gmail.com?subject=%5BGITHUB%3A%20Split-Video%5D%20Your%20Subject%20Here&body=Hello%20Vague%2C%0A%0A)
 
 ## Happy Coding !! :metal:
