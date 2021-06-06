@@ -16,6 +16,12 @@ def size_regex_type(arg_value, pat=re.compile(r"^\d+.?\d{0,2}[KMG]?B$")):
     if not pat.fullmatch(arg_value):
         raise argparse.ArgumentTypeError
     
+    units = {
+        "KB": 1024,
+        "MB": 1024**2,
+        "GB": 1024**3
+    }
+    
     if arg_value[-2].isalpha():
         total = float(arg_value[:-2])*units[arg_value[-2:]]
     else:
@@ -26,11 +32,6 @@ def ratio(an, ad, bn):
     return (ad*bn)/an
 
 def read_inputs():
-    units = {
-    "KB": 1024,
-    "MB": 1024**2,
-    "GB": 1024**3
-}
     parser = argparse.ArgumentParser('Trimming/Splitting Operations on Video Files')
 
     parser.add_argument('--file', nargs=1, metavar="FILENAME", type=str, required=True)
@@ -57,23 +58,29 @@ def read_inputs():
     else:
         size = args.size[0]
         filesize = Path(filename).stat().st_size
-        length = ratio(filesize, size, clip.duration)
+        length = round(ratio(filesize, size, clip.duration), 2)
 
     return filename, length, clip.duration
 
+def decimal_to_time(d):
+    number, decimal = map(int, str(d).split("."))
+    if decimal == 0:
+        return str(number)+":00"
+    return f"{number}:{str(int(ratio(100, decimal, 60)))[:2]}"
+    
 if __name__ == "__main__":
     filename, split_len, duration = read_inputs()
     splits = int(duration//split_len) +(1 if duration%split_len != 0 else 0)
-    print(f"Filename: {filename}\nDuration (in decimal): {duration}\nLength of Split (in decimal): {split_len}\nNo. of Splits: {splits}")
+    print(f"Filename: {filename}\nDuration: {decimal_to_time(duration)}\nLength of Split: {decimal_to_time(split_len)}\nNo. of Splits: {splits}")
 
     name, ext = os.path.splitext(filename)
     places = len(str(splits))
-    start = 0
+    start = 0.0
     for i in range(splits):
         split_name = f"{name} - Chunk {str(i+1).zfill(places)}{ext}"
-        print(f"\nWriting chunk with name '{split_name}' from & to length [{start}, {duration if i == splits-1 else start+split_len}] of the actual file '{filename}' ...")
+        print(f"\nWriting chunk with name '{split_name}' from & to length [{decimal_to_time(start)}, {decimal_to_time(duration if i == splits-1 else start+split_len)}] of the actual file '{filename}' ...")
         ffmpeg_extract_subclip(filename, start, start+split_len, targetname=split_name)
         start += split_len
         print(f"Written chunk '{split_name}' successfully!!")
     
-    print(f"\nAll {splits} chunks have successfully written into current directoty.")
+    print(f"\nAll {splits} chunks have successfully written into current directory.")

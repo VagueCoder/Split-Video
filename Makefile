@@ -62,3 +62,14 @@ install:
 	. venv/bin/activate; \
 	bash which pip; \
 	pip install -Ur requirements.txt;
+
+test:
+	. venv/bin/activate; \
+	python main.py --file sample.mp4 --len 62:50; \
+	ls -l "sample -"*; \
+	rm -f "sample -"*
+
+	. venv/bin/activate; \
+	python main.py --file sample.mp4 --size 2MB; \
+	ls -l "sample -"*; \
+	rm -f "sample -"*
