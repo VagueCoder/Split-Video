@@ -17,12 +17,12 @@ endif
 
 # Commit and push the changes to remote git repo
 push:
-	- cat .gitignore | xargs -rI % git rm -r --cached % 2>/dev/null
+	- @cat .gitignore | xargs -rI % git rm -r --cached % 2>/dev/null
 	- make commit c="${c}"
 	- git push -u origin ${GIT_BRANCH}
 
 pushall:
-	- cat .gitignore | xargs -rI % git rm -r --cached % 2>/dev/null
+	- @cat .gitignore | xargs -rI % git rm -r --cached % 2>/dev/null
 	- make commit c="${c}"
 	- git push -u origin --all
 
@@ -58,7 +58,7 @@ endif
 
 ######################################################################################
 
-requirements:
+install:
 	. venv/bin/activate; \
 	bash which pip; \
 	pip install -Ur requirements.txt;
