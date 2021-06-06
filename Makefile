@@ -73,3 +73,8 @@ test:
 	python main.py --file sample.mp4 --size 2MB; \
 	ls -l "sample -"*; \
 	rm -f "sample -"*
+
+close:
+	- rm -f "sample -"*
+	. venv/bin/activate; \
+	pip freeze > requirements.txt
