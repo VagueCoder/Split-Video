@@ -64,7 +64,7 @@ def read_inputs():
 if __name__ == "__main__":
     filename, split_len, duration = read_inputs()
     splits = int(duration//split_len) +(1 if duration%split_len != 0 else 0)
-    print(f"Filename: {filename}\nLength: {split_len}\nDuration: {duration}\nNo. of Splits: {splits}")
+    print(f"Filename: {filename}\nDuration (in decimal): {duration}\nLength of Split (in decimal): {split_len}\nNo. of Splits: {splits}")
 
     name, ext = os.path.splitext(filename)
     places = len(str(splits))
@@ -75,3 +75,5 @@ if __name__ == "__main__":
         ffmpeg_extract_subclip(filename, start, start+split_len, targetname=split_name)
         start += split_len
         print(f"Written chunk '{split_name}' successfully!!")
+    
+    print(f"\nAll {splits} chunks have successfully written into current directoty.")
