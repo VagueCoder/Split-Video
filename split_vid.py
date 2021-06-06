@@ -1,9 +1,9 @@
-
+#!/usr/bin/env python3
 import re
 import os
 import sys
-from pathlib import Path
 import argparse
+from pathlib import Path
 from moviepy.editor import VideoFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 

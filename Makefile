@@ -61,16 +61,17 @@ endif
 install:
 	. venv/bin/activate; \
 	bash which pip; \
-	pip install -Ur requirements.txt;
+	pip install -Ur requirements.txt; \
+	chmod +x split_vid.py;
 
 test:
 	. venv/bin/activate; \
-	python main.py --file sample.mp4 --len 62:50; \
+	python split_vid.py --file sample.mp4 --len 62:50; \
 	ls -l "sample -"*; \
 	rm -f "sample -"*
 
 	. venv/bin/activate; \
-	python main.py --file sample.mp4 --size 2MB; \
+	python split_vid.py --file sample.mp4 --size 2MB; \
 	ls -l "sample -"*; \
 	rm -f "sample -"*
 
